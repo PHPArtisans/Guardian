@@ -23,6 +23,58 @@ With security and usability in mind, this project aims to provide you a safe way
 
 Defender is looking for maintainers and contributors.
 
+## Table of contents
+
+  * [Installation](#installation)
+    + [1. Dependency](#1-dependency)
+    + [2. Provider](#2-provider)
+    + [3. User Class](#3-user-class)
+      - [4. Publishing configuration file and migrations](#4-publishing-configuration-file-and-migrations)
+    + [5. Facade (optional)](#5-facade--optional-)
+    + [6. Defender Middlewares (optional)](#6-defender-middlewares--optional-)
+      - [6.1 - Create your own middleware](#61---create-your-own-middleware)
+  * [Usage](#usage)
+    + [Creating roles and permissions](#creating-roles-and-permissions)
+      - [With commands](#with-commands)
+      - [With the seeder or artisan tinker](#with-the-seeder-or-artisan-tinker)
+    + [Using the middleware](#using-the-middleware)
+      - [Checking Permissions: needsPermissionMiddleware](#checking-permissions--needspermissionmiddleware)
+      - [Checking Roles: needsRoleMiddleware](#checking-roles--needsrolemiddleware)
+    + [Using in Views](#using-in-views)
+      - [@shield](#-shield)
+      - [@is](#-is)
+      - [Using javascript helper](#using-javascript-helper)
+    + [Using the Facade](#using-the-facade)
+        * [`Defender::hasPermission($permission)`:](#-defender--haspermission--permission---)
+        * [`Defender::canDo($permission)`:](#-defender--cando--permission---)
+        * [`Defender::roleHasPermission($permission)`:](#-defender--rolehaspermission--permission---)
+        * [`Defender::hasRole($roleName)`:](#-defender--hasrole--rolename---)
+        * [`Defender::roleExists($roleName)`:](#-defender--roleexists--rolename---)
+        * [`Defender::permissionExists($permissionName)`:](#-defender--permissionexists--permissionname---)
+        * [`Defender::findRole($roleName)`:](#-defender--findrole--rolename---)
+        * [`Defender::findRoleById($roleId)`:](#-defender--findrolebyid--roleid---)
+        * [`Defender::findPermission($permissionName)`:](#-defender--findpermission--permissionname---)
+        * [`Defender::findPermissionById($permissionId)`:](#-defender--findpermissionbyid--permissionid---)
+        * [`Defender::createRole($roleName)`:](#-defender--createrole--rolename---)
+        * [`Defender::createPermission($permissionName)`:](#-defender--createpermission--permissionname---)
+        * [`Defender::is($roleName)`:](#-defender--is--rolename---)
+        * [`Defender::javascript()->render()`:](#-defender--javascript----render----)
+    + [Using the trait](#using-the-trait)
+        * [`public function hasPermission($permission)`:](#-public-function-haspermission--permission---)
+        * [`public function roleHasPermission($permission)`:](#-public-function-rolehaspermission--permission---)
+        * [`public function attachRole($role)`:](#-public-function-attachrole--role---)
+        * [`public function detachRole($role)`:](#-public-function-detachrole--role---)
+        * [`public function syncRoles(array $roles = array())`:](#-public-function-syncroles-array--roles---array-----)
+        * [`public function attachPermission($permission, array $options = array())`:](#-public-function-attachpermission--permission--array--options---array-----)
+        * [`public function detachPermission($permission)`:](#-public-function-detachpermission--permission---)
+        * [`public function syncPermissions(array $permissions)`:](#-public-function-syncpermissions-array--permissions---)
+        * [`public function revokePermissions()`:](#-public-function-revokepermissions----)
+        * [`public function revokeExpiredPermissions()`:](#-public-function-revokeexpiredpermissions----)
+    + [Temporary permissions](#temporary-permissions)
+      - [For example](#for-example)
+  * [Using custom Role and Permission models](#using-custom-role-and-permission-models)
+
+
 ## Installation
 
 ### 1. Dependency
