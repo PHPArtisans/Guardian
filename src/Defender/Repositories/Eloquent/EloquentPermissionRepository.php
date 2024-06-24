@@ -76,4 +76,22 @@ class EloquentPermissionRepository extends AbstractEloquentRepository implements
             })
             ->get();
     }
+
+	/**
+	 * @param $user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection
+	 */
+	public function getInactivesByUser($user)
+	{
+		$table = $user->permissions()->getTable();
+
+		return $user->permissions()
+			->where($table.'.value', false)
+			->where(function ($q) use ($table) {
+				$q->where($table.'.expires', '>=', Carbon::now());
+				$q->orWhereNull($table.'.expires');
+			})
+			->get();
+	}
 }
